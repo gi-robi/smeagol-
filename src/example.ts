@@ -1,21 +1,44 @@
 import puppeteer from 'puppeteer';
-// Or import puppeteer from 'puppeteer-core';
 
 (async () => {
-    // Launch the browser and open a new blank page
-const browser = await puppeteer.launch({headless: false});
-const page = await browser.newPage();
+    const browser = await puppeteer.launch({ headless: false });
+    const page = await browser.newPage();
 
-// Navigate the page to a URL.
-await page.goto('https://icp.administracionelectronica.gob.es/icpplus/index.html');
+    await page.goto('https://icp.administracionelectronica.gob.es/icpplus/index.html');
 
-// Set screen size.
-await page.setViewport({width: 1080, height: 1024});
+    await page.setViewport({ width: 1080, height: 1024 });
 
-await page.waitForSelector('select#form');
+    await page.waitForNavigation({ waitUntil: 'networkidle0' });
 
-page.select('select#form', '/icpplustieb/citar?p=8&locale=es');
+    await page.waitForSelector('select#form');
+    await page.select('select#form', '/icpplustieb/citar?p=8&locale=es');
 
-page.click('#btnAceptar');
-// await browser.close();
-  })();
+    await page.click('#btnAceptar');
+
+    await page.waitForSelector('select#sede');
+    await page.select('select#sede', "18");
+
+    await page.waitForSelector('select#tramiteGrupo\\[0\\]');
+    await page.select('select#tramiteGrupo\\[0\\]', '4038');
+
+    await page.waitForSelector('#btnAceptar');
+    await page.click('#btnAceptar');
+
+    await page.waitForSelector('#btnEntrar');
+    await page.click('#btnEntrar');
+
+    await page.waitForSelector('#rdbTipoDocPas');
+    await page.click('#rdbTipoDocPas');
+
+    const passaporte = await page.waitForSelector('#txtIdCitado');
+    if (passaporte)
+        await passaporte.type("KK6000533");
+
+    const nombre = await page.waitForSelector('#txtDesCitado');
+    if (nombre)
+        await nombre.type("Maria Rossi");
+
+    await page.waitForSelector('#btnEnviar');
+    await page.click('#btnEnviar');
+
+})();
