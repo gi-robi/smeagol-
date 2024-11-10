@@ -1,0 +1,15 @@
+{
+  "name": "smeagol-",
+  "version": "1.0.0",
+  "description": "get nie appointments",
+  "main": "index.js",
+  "scripts": {
+    "example": "ts-node src/example.ts"
+  },
+  "author": "gi-robi",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}
