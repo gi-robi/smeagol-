@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer';
 import { sendEmail } from './email.js';
 
 (async () => {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
 
     await page.goto('https://icp.administracionelectronica.gob.es/icpplus/index.html');
