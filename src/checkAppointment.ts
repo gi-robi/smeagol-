@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import { sendEmail } from './example-email.js';
+import { sendEmail } from './email.js';
 
 (async () => {
     const browser = await puppeteer.launch({ headless: false });

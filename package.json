@@ -5,8 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "example": "node --loader ts-node/esm src/example.ts", 
-    "example-email": "node --loader ts-node/esm src/example-email.ts",
+    "checkAppointment": "node --loader ts-node/esm src/checkAppointment.ts",
     "build": "tsc --build tsconfig.json"
   },
   "author": "gi-robi",
