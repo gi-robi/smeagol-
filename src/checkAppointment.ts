@@ -1,15 +1,19 @@
-import puppeteer from 'puppeteer';
-import { sendEmail } from './email.js';
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import { sendEmail } from './email';
+
+puppeteer.use(StealthPlugin());
 
 (async () => {
-    const browser = await puppeteer.launch({ headless: true });
+    const headless = process.env.ENVIRONMENT === 'development' ? false : true;
+    const browser = await puppeteer.launch({ headless });
     const page = await browser.newPage();
 
     await page.goto('https://icp.administracionelectronica.gob.es/icpplus/index.html');
 
     await page.setViewport({ width: 1080, height: 1024 });
 
-    await page.waitForNavigation({ waitUntil: 'networkidle0' });
+   await page.waitForNavigation({ waitUntil: 'networkidle0' });
 
     await page.waitForSelector('select#form');
     await page.select('select#form', '/icpplustieb/citar?p=8&locale=es');
