@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "example": "node --loader ts-node/esm src/example.ts", 
-    "example-email": "node --loader ts-node/esm src/example-email.ts"
+    "example-email": "node --loader ts-node/esm src/example-email.ts",
+    "build": "tsc --build tsconfig.json"
   },
   "author": "gi-robi",
   "license": "ISC",
