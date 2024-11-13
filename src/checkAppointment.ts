@@ -5,8 +5,8 @@ import { sendEmail } from './email';
 puppeteer.use(StealthPlugin());
 
 (async () => {
-    const headless = process.env.ENVIRONMENT === 'development' ? false : true;
-    const browser = await puppeteer.launch({ headless });
+    //const headless = process.env.ENVIRONMENT === 'development' ? false : true;
+    const browser = await puppeteer.launch({ headless: true, args:["--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote"] });
     const page = await browser.newPage();
 
     await page.goto('https://icp.administracionelectronica.gob.es/icpplus/index.html');
