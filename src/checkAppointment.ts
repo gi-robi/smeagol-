@@ -5,8 +5,10 @@ import { sendEmail } from './email';
 puppeteer.use(StealthPlugin());
 
 (async () => {
-    //const headless = process.env.ENVIRONMENT === 'development' ? false : true;
-    const browser = await puppeteer.launch({ headless: true, args:["--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote"] });
+    const proxyArg = '--prox-server=http://37.222.116.81:80';
+    const headless = process.env.ENVIRONMENT === 'development' ? false : true;
+    const args = process.env.ENVIRONMENT === 'development' ? [proxyArg] : [proxyArg, "--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote"]
+    const browser = await puppeteer.launch({ headless, args });
     const page = await browser.newPage();
 
     await page.goto('https://icp.administracionelectronica.gob.es/icpplus/index.html');
@@ -54,6 +56,8 @@ puppeteer.use(StealthPlugin());
     } catch(error) {
         sendEmail({to: 'giambonaroberta@gmail.com', from: 'giambonaroberta0@gmail.com', subject: 'cita available', html: 'wiiiii, not found paragraph'});
     }
+
+    console.log('I finished');
 
     await browser.close();
 })();
